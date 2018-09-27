@@ -6,7 +6,6 @@ public class Tuberias : MonoBehaviour {
 
     [SerializeField] int speed = 3;
 
-	// Use this for initialization
 	void Start ()
     {
         float factorPosicion = Random.Range(-4, 4);
@@ -17,8 +16,7 @@ public class Tuberias : MonoBehaviour {
             transform.position.z
             );
 	}
-	
-	// Update is called once per frame
+
 	void Update ()
     {
         if (GameConfig.IsPlaying())

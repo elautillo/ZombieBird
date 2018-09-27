@@ -8,14 +8,18 @@ public class Pajaro : MonoBehaviour {
 
     [SerializeField] Text marcador;
     [SerializeField] ParticleSystem sangre;
-    [SerializeField] float fuerza = 300f;
-    AudioSource audioSource;
+    [SerializeField] float impulso;
+    [SerializeField] AudioSource sonidoGolpe;
+    [SerializeField] AudioSource sonidoPunto;
+    [SerializeField] AudioSource sonidoAla;
+
     Rigidbody rb;
-    int puntos = 0;
+    int puntos;
 
     void Start ()
     {
-        audioSource = GetComponent<AudioSource>();
+        impulso = 300f;
+        puntos = 0;
         rb = GetComponent<Rigidbody>();
         marcador.text = "Score: " + puntos;
     }
@@ -24,29 +28,36 @@ public class Pajaro : MonoBehaviour {
     {
         if (Input.GetKeyDown("space"))
         {
-            rb.AddForce(transform.up * fuerza);
+            sonidoAla.Play();
+            rb.AddForce(transform.up * impulso);
         }
 	}
 
     private void OnTriggerEnter(Collider other)
     {
+        //Generamos sonido
+        sonidoPunto.Play();
+
+        //Conteamos puntos
         puntos++;
-        Debug.Log(puntos.ToString());
         marcador.text = "Score: " + puntos;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //DETENEMOS EL JUEGO
+        //Generamos sonido
+        sonidoGolpe.Play();
+
+        //Detenemos juego
         GameConfig.Stop();
 
-        //INSTANCIAR SISTEMA DE PARTICULAS
+        //Instanciamos partículas
         Instantiate(sangre, transform.position, Quaternion.identity);
 
-        //DESACTIVAR EL RENDERER DEL PAJARO
+        //Desactivamos pájaro
         gameObject.SetActive(false);
 
-        //FINALIZAMOS LA PARTIDA TRAS UN DELAY
+        //Finalizamos partida
         Invoke("FinalizarPartida", 0.5f);
     }
 
