@@ -9,7 +9,7 @@ public class Tuberias : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        float factorPosicion = Random.RandomRange(-4, 4);
+        float factorPosicion = Random.Range(-4, 4);
         transform.position = new Vector3
             (
             transform.position.x,

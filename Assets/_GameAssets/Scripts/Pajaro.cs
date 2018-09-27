@@ -9,11 +9,13 @@ public class Pajaro : MonoBehaviour {
     [SerializeField] Text marcador;
     [SerializeField] ParticleSystem sangre;
     [SerializeField] float fuerza = 300f;
+    AudioSource audioSource;
     Rigidbody rb;
     int puntos = 0;
 
     void Start ()
     {
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         marcador.text = "Score: " + puntos;
     }
